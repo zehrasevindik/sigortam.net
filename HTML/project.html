@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            width: 100%;
+            grid-area: 5px;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.3s ease;
+            background-color: #f5f7f9;
+            padding: 15px 20px;
+            height: 60px;
+        }
+        .fixed-header {
+            background: white;
+        }
+        .hidden-header {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            font-weight: lighter;
+            color: #616363;
+            padding: 8px 16px;
+            position: relative;
+            transition: color 0.3s ease-in-out;
+        }
+        .navbar ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0%;
+            bottom: -3px;
+            width: 100%;
+            height: 2px;
+            background-color: #0089ec;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+        .navbar ul li a:hover {
+            color: #0089ec;
+        }
+        .navbar ul li a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 160px;
+        }
+        .number {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .support-text {
+            font-size: 12px;
+            color: #616363;
+            margin-bottom: 5px;
+        }
+        .phone-container-1 {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .phone-icon {
+            width: 40px;
+            height: auto;
+        }
+        .phone-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            line-height: 1;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .btn {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #0089ec;
+            color: #fff;
+            padding: 12px 24px;
+            margin-right: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            gap: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .hamburger-menu {
+            display: none;
+            font-size: 24px;
+            color: #0089ec;
+            cursor: pointer;
+            margin-right: 50px;
+        }
+        .banner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-wrap: nowrap;
+            margin-top: 150px;
+            border-radius: 12px;
+            cursor: pointer;
+            top: 0%;
+        }
+        .banner .text {
+            font-size: 14px;
+            text-align: center;
+            color: #333;
+        }
+        .banner .arrow {
+            font-size: 20px;
+            margin-left: auto;
+            color: black;
+        }
+        .giftbox-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+        .products {
+            background-color: #f5f7f9;
+            text-align: center;
+            padding: 50px;
+        }
+        .products h1 {
+            font-size: 48px;
+            font-weight: bold;
+        }
+        .products p {
+            font-size: 18px;
+            color: #616363;
+            margin-bottom: 30px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .product-card:hover span {
+            color: #0089ec;
+        }
+        .product-card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .all-products {
+            display: inline-block;
+            margin-top: 40px;
+            text-decoration: none;
+            color: #0089ec;
+            font-weight: bold;
+        }
+        .why-choose-us {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .assurance-h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .assurance {
+            width: 1000px;
+            text-align: center;
+        }
+        .assurance img {
+            width: 90px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .assurance h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .assurance p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .compare-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            box-sizing: border-box;
+            max-width: 1000px;
+            padding: 40px 20px;
+            min-height: 1000px;
+            top: 50%;
+        }
+        .text-container {
+            width: 50%;
+            padding: 20px;
+        }
+        .text-container a {
+            text-decoration: none;
+            color: #0089ec;
+        }
+        .phone-base {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 50px;
+            z-index: 10;
+            margin-top: 20px;
+        }
+        .phone-container {
+            width: 50%;
+            padding: 20px;
+        }
+        .phone-base img {
+            width: 100%;
+            margin: 0;
+            height: auto;;
+            display: block;
+        }
+        #stickyImage {
+            width: 275px;
+            display: block;
+            margin: 0 auto;
+        }
+        .phone-text {
+            font-size: 12px;
+            color: #777;
+            margin-top: 10px;
+            max-width: 220px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .campaigns {
+            max-width: 1000px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .campaign-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .campaign-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 10px;
+        }
+        .campaign-buttons .tab {
+            padding: 10px 12px;
+            border: 2px solid transparent;
+            background-color: white;
+            color: #777;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+        .campaign-buttons .tab.active {
+            background-color: white;
+            color: #0089ec;
+            border: 2px solid #0089ec;
+        }
+        .campaign-buttons .tab:hover {
+            background-color: #f5f5f5;
+        }
+        .slide-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .full-link {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .cta-link {
+            position: relative;
+            z-index: 20;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide-content {
+            width: 50%;
+            height: 100%;
+            padding: 60px;
+            background-color: #0089ec;
+            color: white;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+        .slide {
+            flex: 0 0 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f5f5f5;
+            height: 400px;
+        }
+        .slide img {
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slide-content a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-decoration: none;
+            color: #0089ec;
+            background-color: white;
+            border: none;
+            font-size: 22px;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .dot.active {
+            background-color: #0089ec;
+        }
+        .comments {
+            padding: 50px 50px;
+            height: 500px;
+            margin-top: 30px;
+            background-color: #f5f7f9;
+        }
+        .section-title {
+            font-size: 24px;
+            margin-top: 100px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .returns {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .comments-card {
+            background: white;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 320px;
+            min-height: 180px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .comments-card p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .customer-name {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: right;
+            font-size: 14px;
+        }
+        .awards {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 10%;
+            gap: 40px;
+        }
+        .awards-content {
+            flex: 1;
+            max-width: 50%;
+            padding-left: 50px;
+        }
+        .awards-content h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .awards-content p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .awards-content-link {
+            color: #0089ec;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        a {
+            text-decoration: none;
+            color: #0089ec;
+            font-weight: bold;
+        }
+        .awards-images {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .clickable-img-large img {
+            width: 180px;
+            cursor: pointer;
+        }
+        .clickable-img-small img {
+            width: 140px;
+            cursor: pointer;
+            margin-right: 100px;
+        }
+        .insurance-section {
+            text-align: center;
+            padding: 50px 10%;
+            background-color: #f5f7f9;
+        }
+        .insurance-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .insurance-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            padding: 50px 50%;
+            justify-content: center;
+        }
+        .insurance-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 14px;
+            padding: 8px;
+            height: 85px;
+            width: 140px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3 ease-in-out;
+        }
+        .insurance-card img {
+            max-width: 85%;
+            height: auto;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease-in-out;
+        }
+        .insurance-card:hover img {
+            filter: grayscale(0%);
+        }
+        .faq-section {
+            text-align: center;
+            padding: 100px 10%;
+            top: 50%;
+            background-color: #f5f7f9;
+        }
+        .faq-section h2 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .faq {
+            max-width: 900px;
+            margin: auto;
+        }
+        .faq-item {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 15px;
+            margin: 0;
+            font-size: 18px;
+            text-align: center;
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: left;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #555;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        .faq-item-active .faq-answer {
+            max-height: 500px;
+            padding: 50px 20px;
+            border-top: 1px solid #ddd;
+        }
+        .faq-item-active .arrow {
+            transform: rotate(180deg);
+        }
+        .faq-item .arrow {
+            color: #0089ec;
+            font-size: 20px;
+            transition: transform 0.3s;
+        } 
+        .products-section {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #f5f7f9;
+        }
+        .products-section h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .products-section p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 32px;
+        }
+        .products-section p:hover {
+            color: #0089ec;
+        }
+        .product-grid-v2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .product-card-v2 {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #111;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+        .product-card-v2:hover {
+            transform: scale(1.05);
+        }
+        .product-card-v2:hover span {
+            color: #0089ec;
+        }
+        .product-card-v2 img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        .product-card-v2 span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .footer-container {
+            background-color: white;
+            padding: 40px;
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font-size: 14px;
+            gap: 20px;
+        }
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;      
+            margin-bottom: 0;
+        }
+        .footer-logo p {
+            font-size: 12px;
+            margin: 0;
+            color: #777;
+            margin-top: -100px;
+            margin-left: 20px;
+        }
+        .footer-logo img {
+            width: 320px;
+            margin-bottom: 5px;
+        }
+        .footer-section h4 {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 80%;
+            gap: 20px;
+        }
+        .footer-section {
+            min-width: 160px;
+            text-align: left;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #777;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+            font-weight: lighter;
+        }
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+        .prices-sct {
+            display: flex;
+            align-items: center;
+        }
+        .prices-sct img {
+            display: block;
+            max-height: 70px;
+        }
+        .footer-contact {
+            margin-top: -250px;
+            align-self: flex-start;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        .social-icons {
+            display: block;
+            align-items: center;
+            gap: 20px;
+        }
+        .social-icons a {
+            margin-right: 10px;
+            font-size: 22px;
+            color: #333;
+            transition: color 0.3s;
+            text-align: center;
+        }
+        .social-icons a:hover {
+            color: #007bff;
+        }
+        .badges img {
+            width: 50px;
+            margin: 5px;
+        }
+        .footer-bottom {
+            width: 100%;
+            text-align: left;
+            display: flex;
+            margin-top: 20px;
+            font-size: 13px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        .footer-brands {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-left: 250px;
+        }
+        .footer-contact {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            align-self: flex-start;
+            gap: 30px;
+        }
+        .footer-contact p {
+            margin: 0;
+        }
+        .footer-bottom a {
+            text-decoration: none;
+            color: #777;
+        }
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 992px) {
+            .features {
+                gap: 30px;
+            }
+            .assurance {
+                max-width: 250px;
+            }
+            .assurance-h2 {
+                font-size: 18px;
+            }
+            .assurance p {
+                font-size: 15px;
+            }
+        }
+        @media (max-width: 768px) {
+            .navbar,
+            .phone-icon,
+            .phone-number,
+            .support-text {
+                display: none;
+            }
+            .menu {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 0;
+                padding: 0;
+                margin: 0;
+            }
+            .btn {
+                display: flex;
+                padding: 8px 12px;
+                font-size: 14px;
+                margin-left: 120px;
+            }
+            .hide-on-mobile {
+                display: none;
+            }
+            .hamburger-menu {
+                display: flex;
+                font-size: 24px;
+                color: #0089ec;
+                cursor: pointer;
+                margin-right: 30px;
+                padding: 0;
+            }
+            .logo img {
+                height: 100px;
+            }
+            .features {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .assurance {
+                max-width: 100%;
+                width: 90%;
+            }
+            .assurance-h2 {
+                font-size: 16px;
+            }
+            .assurance p {
+                font-size: 14px;
+            }
+            .compare-section {
+                flex-direction: column;
+                padding: 20px 10px;
+                min-height: auto;
+            }
+            .text-container, .phone-container {
+                width: 100%;
+                padding: 10px;
+            }
+            .text-container h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            .text-container p {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            .phone-base {
+                position: relative;
+                top: auto;
+                margin-top: 10px;
+            }
+            #stickyImage {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .phone-text {
+                font-size: 14px;
+                max-width: 100%;
+            }
+            .campaigns {
+                padding: 20px 10px;
+            }
+            .campaign-title {
+                font-size: 22px;
+            }
+            .campaign-buttons {
+                flex-wrap: inherit;
+                gap: 8px;
+            }
+            .slide {
+                flex-direction: row;
+                height: auto;
+            }
+            .slide-content {
+                width: 100%;
+                border-radius: 0;
+                padding: 20px;
+                text-align: center;
+            }
+            .slide img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+            .prev, .next {
+                top: 90%;
+                transform: translateY(-90%);
+                font-size: 18px;
+                padding: 5px;
+            }
+            .comments {
+                padding: 30px 20px;
+                height: auto;
+            }
+            .section-title {
+                font-size: 20px;
+                margin-top: 40px;
+            }
+            .returns {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .comments-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            .comments-card p {
+                font-size: 14px;
+            }
+            .customer-name {
+                font-size: 13px;
+            }
+            .awards {
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 5%;
+                gap: 20px;
+                text-align: center;
+            }
+            .awards-content {
+                max-width: 100%;
+                padding-left: 0;
+            }
+            .awards-content h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            .awards-content p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            .awards-images {
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+            }
+            .clickable-img-large img {
+                width: 150px;
+            }
+            .clickable-img-small img {
+                width: 120px;
+                margin-right: 0; 
+            }
+            .insurance-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+                padding: 30px 5%;
+                justify-content: center;
+            }
+            .insurance-card {
+                height: 70px;
+                width: 100px;
+            }
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+            .footer-logo {
+                align-items: center;
+                text-align: center;
+            }
+            .footer-logo img {
+                width: 200px;
+            }
+            .footer-logo p {
+                margin-left: 0;
+                margin: 0 auto;
+            }
+            .footer-links {
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+            }
+            .footer-section {
+                text-align: center;
+            }
+            .prices-sct {
+                margin: 20px 0;
+            }
+            .footer-contact {
+                margin-left: 0;
+                margin: auto;
+                align-self: center;
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .footer-brands {
+                justify-content: center;
+                margin: auto;
+            }
+            .banner {
+                bottom: 10px;        
+                right: 10px;         
+                padding: 8px;        
+                top: auto;         
+            }
+            .banner .text {
+                font-size: 12px;    
+            }
+            .banner .arrow {
+                font-size: 18px;    
+            }
+            .giftbox-icon {
+                width: 20px;       
+                height: 20px;
+                margin-right: 5px;  
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="Header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="../www.root/Sigortam.net Yeni.png" alt="Sigortam.net Logo">
+            </a>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="Ürünlerimiz">Ürünlerimiz<i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="Kampanyalar">Kampanyalar</a></li>
+                <li><a href="Poliçe İptal İşlemleri">Poliçe İptal İşlemleri</a></li>
+                <li><a href="Bilgi Merkezi">Bilgi Merkezi<i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+        </nav>
+        <div class="number">
+            <div class="support-text">Yardımcı Olmaya Hazırız</div>
+            <div class="phone-container-1"></div>
+                <img src="../www.root/211829_telephone_icon.svg" alt="Telephone" class="phone-icon">
+                <span class="phone-number">444 24 08</span>
+            </div>    
+        </div>
+        <div class="menu">
+            <a href="giris.html" class="btn">Giriş Yap <span class="hide-on-mobile">/ Üye Ol</span></a>
+        </div>
+        <div class="hamburger-menu">
+            <i class="fa fa-bars"></i>
+        </div>
+    </header>
+    <a href="davet-butonu">
+        <div class="banner">
+            <img src="../www.root/1730974_gift_box_christmas_holiday_present_icon.png" alt="Hediye Kutusu" class="giftbox-icon">
+            <span class="text">Arkadaşlarını Davet Et, <br>20.000 TL'ye varan hediye çeki kazan!</span>
+            <span class="arrow">➜</span>
+        </div>
+    </a>    
+    <section id="Ürünlerimiz" class="products">
+        <h1>Sigortada Güvenin Adresi</h1>
+        <p>Doğru Ürün. İyi Fiyat. 7/24 Hizmet.</p>
+        <div class="product-grid">
+            <a href="kasko.html" class="product-card">
+                <img src="../www.root/auto-v2.svg" alt="Kasko">
+                <span>Kasko</span>
+            </a>
+            <a href="elektrikli-kasko.html" class="product-card">
+                <img src="../www.root/electric-vehicle-orange.svg" alt="Elektrikli Araç Kaskosu">
+                <span>Elektrikli Araç Kaskosu</span>
+            </a>
+            <a href="tamamlayici-saglik.html" class="product-card">
+                <img src="../www.root/complementhealth-v2.svg" alt="Tamamlayıcı Sağlık">
+                <span>Tamamlayıcı Sağlık</span>
+            </a>
+            <a href="trafik.html" class="product-card">
+                <img src="../www.root/traffic-orange.svg" alt="Trafik Sigortası">
+                <span>Trafik Sigortası</span>
+            </a>
+            <a href="imm.html" class="product-card">
+                <img src="../www.root/imm.svg" alt="İMM">
+                <span>İMM</span>
+            </a>
+            <a href="ozel-saglik.html" class="product-card">
+                <img src="../www.root/healthOrange.svg" alt="Özel Sağlık">
+                <span>Özel Sağlık</span>
+            </a>
+            <a href="seyahat-saglik.html" class="product-card">
+                <img src="../www.root/travel.svg" alt="Seyahat Sağlık">
+                <span>Seyahat Sağlık</span>
+            </a>
+            <a href="dask.html" class="product-card">
+                <img src="../www.root/dask-v2.svg" alt="DASK">
+                <span>DASK</span>
+            </a>
+        </div>
+        <a href="tum.urunler.html" class="all-products">Tüm Ürünleri Gör</a>
+    </section>
+    <section class="why-choose-us">
+        <h2 class="assurance-h2">Poliçemi neden Sigortam.net'ten almalıyım?</h2>
+        <div class="features">
+            <div class="assurance">
+                <img src="../www.root/2a.svg" alt="Doğru Ürün">
+                <h3>Doğru Ürün</h3>
+                <p>Yenilenen yapay zekâmızla, onlarca sigorta teklifi arasından ucuzunu, sana uygununu ve kapsamlısını buluyoruz. Net teminatlar ve net fiyatlarla kararın hep net olsun.</p>
+            </div>
+            <div class="assurance">
+                <img src="../www.root/2b.svg" alt="İyi Fiyat">
+                <h3>İyi Fiyat</h3>
+                <p>Önceliğimiz her zaman sensin. Çalıştığımız tüm şirketlerde bütçeni düşünerek “en iyi fiyat garantisi” sunuyoruz.</p>
+            </div>
+            <div class="assurance">
+                <img src="../www.root/2c.svg" alt="7/24 Hizmet">
+                <h3>7/24 Hizmet</h3>
+                <p>24 yıllık tecrübemiz ve uzman sigorta danışmanlarımızla 7/24 her ihtiyacında yanındayız. Üstelik hasar anında saniyeler içinde bize ulaşabilirsin.</p>
+            </div>
+        </div>
+    </section>
+    <section class="compare-section compare-section-1">
+        <div class="text-container">
+            <h2>Hangi ürün bana en uygun diye düşünme, biz senin için en net teklifleri sıraladık bile!</h2>
+            <p>Tüm teminatları tek tek inceledik, ihtiyaçlarına en uygun olan teminatları belirledik. Sana özel kapsamlı ve fiyatı uygun ürün önerileri hazırladık.</p>
+            <a href="hemen-teklif-al">Hemen Teklif Al ➜</a>
+        </div>
+        <div class="phone-container">
+            <div class="phone-base">
+                <img id="stickyImage"src="../www.root/phone-mockup (1).png" alt="Telefon">
+                <p class="phone-text">Görseldeki fiyatlar temsilidir. Aracına özel fiyatları tekliflerde görebilirsin.</p>
+            </div>
+        </div>
+    </section>       
+    <section class="compare-section compare-section-2">
+        <div class="text-container">
+            <h2>Sadece 2 dakikada tüm teklifleri kolayca karşılaştır.</h2>
+            <p>20+ sigorta şirketinden teklifleri tek platformda karşılaştır, internete özel indirimlerle uygun fiyata sigortan anında başlasın.</p>
+            <a href="hemen-teklif-al">Hemen Teklif Al ➜</a>
+        </div>
+    </section>
+    <section class="campaigns">
+        <h2 class="campaign-title">Sigortam.net'te sana özel neler var?</h2>
+        <div class="campaign-buttons">
+            <button class="tab active" data-tab="discounts">İndirimler & Kampanyalar</button>
+            <button class="tab" data-tab="advert">Reklam Filmleri</button>
+            <button class="tab" data-tab="featured">Öne Çıkanlar</button>
+        </div>
+        <div class="slide-container">
+            <button class="prev">&#10094;</button>
+            <div class="slider">
+                <div class="slide active">
+                    <a href="hemen-kesfet" class="full-link"></a>
+                    <div class="slide-content">
+                        <h3>Sigortam.netlilere n11 üzeinden yapılan alışverişlerde kupon hediye</h3>
+                        <a href="hemen-kesfet" class="cta-link">Hemen Keşfet →</a>
+                    </div>
+                    <img src="../www.root/snet-n11-kampanya.png" alt="Kampanya Görseli">
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <h3>Arkadaşlarını davet et, 20.000 TL'ye varan hediye çeki kazan!</h3>
+                        <a href="hemen-kesfet">Hemen Keşfet →</a>
+                    </div>
+                    <img src="../www.root/paylas-kazan-kampanya.png" alt="Kampanya Görseli">
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <h3>Petrol Ofisi Müşterilerine Özel Kaskoda %6 İndirim!</h3>
+                        <a href="hemen-kesfet">Hemen Keşfet →</a>
+                    </div>
+                    <img src="../www.root/petrol-ofisi-kampanya.png" alt="Kampanya Görseli">
+                </div>
+            </div>
+            <button class="next">&#10095;</button>
+        </div>
+        <div class="dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </section>
+    <section class="comments">
+        <h2 class="section-title">10 Milyon Mutlu Müşteri, 50+ Milyon Poliçe Teklifi</h2>
+        <div class="returns">
+            <div class="comments-card">
+                <p>İnternetten alınan bir poliçeden <strong>çok daha fazlası.</strong> Kaza anında çekicinin gelmesinden tutun sağlık durumunuza kadar <strong>her şeyle ilgileniyorlar.</strong></p>
+                <span class="customer-name">Kazım Ş.</span>
+            </div>
+            <div class="comments-card">
+                <p>Sigortam.net sayesinde evden çıkmadan <strong>tek bir telefonla</strong> trafik sigortası ve kaskoyu yaptırdım. <strong>Hızlı, sorunsuz ve güvenilir.</strong></H></p>
+                <span class="customer-name">Murat İ.</span>
+            </div>
+            <div class="comments-card">
+                <p>Piyasadan alabileceğim kasko poliçesini aynı kapsamda <strong>taksitle, daha ucuza ve profesyonel hizmetle</strong> Sigortam.net üzerinden satın aldım.</p>
+                <span class="customer-name">Şaban K.</span>
+            </div>
+        </div>
+    </section>
+    <section class="awards">
+        <div class="awards-content">
+                <h2>Ödüllerimizden bahsetmiş miydik?</h2>
+                <p>Dünyanın en prestijli ödüllerinden biri olan Stevie Awards’ta  
+                    Sigorta Sektörünün En İyi Websitesi Ödülü’nü kazandık.  
+                    Sizinle yürüdüğümüz bu yolda nice ödülleri kucaklamak dileğiyle...</p>
+                    <a href="odullerimiz.html" class="full-text-link">Detaylı Bilgi →</a>
+        </div>
+        <div class="awards-images">
+            <div class="clickable-img-large">
+                <img src="../www.root/snet-gold-winner-badge.png" alt="2022 Stevie Award">
+            </div>
+            <div class="clickable-img-small">
+                <img src="../www.root/if-design-award-2024-vertical.png" alt="iF Design Award 2024">
+            </div>
+        </div>
+    </section>
+    <section class="insurance-section">
+        <h2>25’ten fazla sigorta şirketinden teklif al</h2>
+        <div class="insurance-grid">
+            <div class="insurance-card">
+                <a href="sigorta-acibadem.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/acibadem-sigorta.png" alt="Acıbadem Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-aksigorta.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/ak-sigorta.png" alt="AKSigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-allianz.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/allianz.png" alt="Allianz">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-anadolu.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/anadolu-sigorta.png" alt="Anadolu Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-anadolu-hayat.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/anadolu-hayat-emeklilik.png" alt="Anadolu Hayat">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-axa.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/axa-sigorta.png" alt="AXA Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-eureko.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/eureko.png" alt="Eureko Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-hdi.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/hdi-sigorta.png" alt="HDI Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-mapfre.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/mapfre-sigorta.png" alt="MAPFRE Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-quick.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/quick-sigorta.png" alt="Quick Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-sompo.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/sompo-sigorta.png" alt="Sompo Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-zurich.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/zurich-sigorta-v2.png" alt="Zurich Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-katilim.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/turkiye-katilim-sigorta.png" alt="Katılım Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-neova.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/neova-sigorta.png" alt="Neova Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-gig.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/gig-sigorta.png" alt="Gig Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-orient.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/orient-sigorta.png" alt="Orient Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-ray.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/ray-sigorta.png" alt="Ray Sigota">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-nipon.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/turk-nippon-sigorta.png" alt="Turk Nipon Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-turkiye.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/turkiye-sigorta.png" alt="Turkiye Sigorta">
+                </a>
+            </div>
+            <div class="insurance-card">
+                <a href="sigorta-hdi.html" class="insurance-card">
+                    <img src="../www.root/sigortasirketleri/hdi-sigorta.png" alt="Hdi Sigorta">
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="faq-section">
+        <h2>Sigortam.net Hakkında En Merak Edilen 5 Soru</h2>
+        <div class="faq">
+            <div class="faq-item">
+                <button class="faq-question">
+                    Neden Sigortam.net'i tercih etmeliyim, farkınız nedir?
+                    <span class="arrow">&#9662;</span>
+                </button>
+                <div class="faq-answer">
+                    Sigortam.net Türkiye’nin ilk ve lider online sigorta brokeridir. Broker olarak farkımız, 
+                    öncelikli olarak müşterilerimizi temsil etmemiz ve onların menfaatleri doğrultusunda 
+                    hareket etmemizdir. Bu misyonla her zaman müşterilerimizin tarafındayız ve 20+ sigorta 
+                    şirketi teklifini tek bir sayfada görmelerini, hem teminatların hem de fiyatları objektif 
+                    olarak karşılaştırmalarını sağlıyoruz. Böylece müşterilerimiz ihtiyaçlarına en uygun sigortayı kolayca belirliyor ve online olarak satın alabiliyor. Ayrıca satış sonrası herhangi bir ihtiyacınızda 24 yıllık tecrübeli ekibimiz 7/24 desteğe hazır.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Poliçe satışında müşterilerden ek ücret alıyor musunuz?
+                    <span class="arrow">&#9662;</span>
+                </button>
+                <div class="faq-answer">
+                    Hayır, hiçbir ek ücret almıyoruz. Müşterilerimizden yalnızca sigorta şirketinin belirlediği poliçe fiyatını tahsil ediyoruz. Bu fiyat üzerinden Sigortam.net indirimleri veya iş birliği kampanyalarımız ile müşterilerimize en iyi fırsatları sunuyoruz.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Poliçe fiyatlarında indirim yapıyor musunuz?
+                    <span class="arrow">&#9662;</span>
+                </button>
+                <div class="faq-answer">
+                    Evet, sigorta şirketinin belirlediği poliçe fiyatı üzerinden, müşteriye özel Sigortam.net indirimleri uygulanabilir. Satın alma aşamasında kartınızdan sigorta şirketinin belirlediği tutar tahsil edilir, indirim tutarı Sigortam.net tarafından ödeme yapılan kredi kartına 1 hafta içerisinde iade edilir.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    En iyi sigorta teklifini nasıl seçeceğim?
+                    <span class="arrow">&#9662;</span>
+                </button>
+                <div class="faq-answer">
+                    Anlaşmalı olduğumuz 20+ sigorta şirketinin müşterilerimize özel hazırladığı teklifleri fiyat ve teminatlar açısından puanlayıp öneriler hazırlıyoruz. Bu sayede müşterilerimiz teklifler arasından; en ucuz fiyata sahip ürün, fiyat/performans skoru en iyi olan ürün ve en kapsamlı teminat içeriğine sahip ürünü kolayca görebilir. Uzun süren incelemelere gerek kalmadan ihtiyacına en uygun poliçeyi hızlıca bulur ve güvencesini başlatır.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Sigortam.net’te kişisel bilgilerim güvende mi?
+                    <span class="arrow">&#9662;</span>
+                </button>
+                <div class="faq-answer">
+                    Evet, müşterilerimize özel sigorta teklifi için paylaşılan kişisel bilgiler ve ödeme bilgileri, tüm dünyada kabul edilip kullanılan SSL protokolümüz ile korunur. Sigortam.net TOBB tarafından verilen Güven Damgası’na sahip sigorta sektöründeki ilk şirkettir. Ödeme bilgileri sadece ödeme gerçekleştirilirken kullanılıp işlem sonrası kesinlikle kayıtlı tutulmaz. Bu güvenlik protokolleri sayesinde müşterilerimizin bilgileri Sigortam.net’e geldiği andan ödemenin tamamlanmasına kadar güvendedir.
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="products-section">
+        <h2>Sigortada Güvenin Adresi</h2>
+        <p>Doğru Ürün. İyi Fiyat. 7/24 Hizmet.</p>
+        <div class="product-grid-v2">
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/traffic.svg" alt="Trafik Sigortası">
+                <span>Trafik Sigortası</span>
+            </a>
+                <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/auto-v2.svg" alt="Kasko">
+                <span>Kasko</span>
+            </a>
+                <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/imm.svg" alt="İMM">
+                <span>İMM</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/complementhealth-v2.svg" alt="Tamamlayıcı Sağlık">
+                <span>Tamamlayıcı Sağlık</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/health-v2.svg" alt="Özel Sağlık">
+                <span>Özel Sağlık</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/travel.svg" alt="Seyahat Sağlık">
+                <span>Seyahat Sağlık</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/dask.svg" alt="DASK">
+                <span>DASK</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/home.svg" alt="Evim Güvende">
+                <span>Evim Güvende</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/housing.svg" alt="Konut Sigortası">
+                <span>Konut Sigortası</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/personal-accident-blue.svg" alt="Ferdi Kaza">
+                <span>Ferdi Kaza</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/pet-v2.svg" alt="Evcil Hayvan">
+                <span>Evcil Hayvan</span>
+            </a>
+            <a href="#" class="product-card-v2">
+                <img src="../www.root/sigortasirketlerimavi/phone.svg" alt="Cep Telefonu">
+                <span>Cep Telefonu</span>
+            </a>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html">
+                <img src="../www.root/Sigortam.net Yeni.png" alt="Sigortam.net Logosu" />
+                </a>
+                <p>© 2000–2025 Sigortam.net</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Ürünlerimiz</h4>
+                    <ul>
+                        <li><a href="#" title="Kasko Sigortası hakkında detaylı bilgi">Kasko Sigortası</a></li>
+                        <li><a href="#" title="Trafik Sigortası hakkında detaylı bilgi">Trafik Sigortası</a></li>
+                        <li><a href="#" title="İMM Sigortası hakkında detaylı bilgi">İMM Sigortası</a></li>
+                        <li><a href="#">Tamamlayıcı Sağlık Sigortası</a></li>
+                        <li><a href="#">Özel Sağlık Sigortası</a></li>
+                        <li><a href="#">Konut Sigortası</a></li>
+                        <li><a href="#">DASK</a></li>
+                        <li><a href="#">Evim Güvende Sigortası</a></li>
+                        <li><a href="#">Ferdi Kaza Sigortası</a></li>
+                        <li><a href="#">Telefon Kaskosu</a></li>
+                        <li><a href="#">Evcil Hayvan Sigortası</a></li>
+                        <li><a href="#">Seyahat Sağlık Sigortası</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Merak Edilenler</h4>
+                    <ul>
+                        <li><a href="#">Günlük, Haftalık ve Aylık Kasko</a></li>
+                        <li><a href="#">Doğum Sigortası Fiyatları</a></li>
+                        <li><a href="#">Hamileyken Doğum Sigortası</a></li>
+                        <li><a href="#">İMM Sigortası Nedir</a></li>
+                        <li><a href="#">İnternetten Trafik Sigortası Yaptırmak</a></li>
+                         <li><a href="#">Sağlık Sigortası Karşılaştırma</a></li>
+                        <li><a href="#">SBM Teklif Al</a></li>
+                        <li><a href="#">Trafik Sigortası Şirketleri</a></li>
+                        <li><a href="#">TSS Doğum Paketi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hızlı Erişim</h4>
+                    <ul>
+                         <li><a href="#">Araç Yakıt Hesaplama</a></li>
+                         <li><a href="#">Kasko Değer Listesi</a></li>
+                        <li><a href="#">MTV Hesaplama</a></li>
+                        <li><a href="#">ÖTV Hesaplama</a></li>
+                        <li><a href="#">Trafik Sigortası Basamak Hesaplama</a></li>
+                        <li><a href="#">Tramer Kaydı Sorgulama</a></li>
+                        <li><a href="#">Zorunlu Trafik Sigortası Fiyatları</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hakkımızda</h4>
+                    <ul>
+                        <li><a href="#">Biz Kimiz?</a></li>
+                        <li><a href="#">İletişim</a></li>
+                        <li><a href="#">Ödüllerimiz</a></li>
+                        <li><a href="#">İşlem Rehberi</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Kullanıcı Sözleşmesi</a></li>
+                        <li><a href="#">Kişisel Verilerin Korunması</a></li>
+                        <li><a href="#">Gizlilik ve Çerez Politikası</a></li>
+                        <li><a href="#">Çerez Tercihleri</a></li>
+                        <li><a href="#">Basketbol Takımı</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="prices-sct">
+                <a href="#">
+                    <img src="../www.root/Ekran Görüntüsü (399).png" alt="oduller">
+                </a>
+            </div>
+            <div class="footer-contact">
+                <p><strong>Yardımcı olmaya hazırız</strong></p>
+                <p>📞 444 24 00</p>
+                <div class="social-icons">
+                    <p><strong>Bizi Takip Edin</strong></p>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="badges">
+                    <a href="#"><img src="../www.root/guven-damgasi.svg" alt="Ödül 1" style="height: 60px; width: 90px;"/></a>
+                    <a href="#"><img src="../www.root/etbis.png" alt="Güvenlik Rozeti" /></a>
+                    <a href="#"><img src="../www.root/ssl.svg" alt="SSL Sertifikası" style="height: 40px; width: 40px;"/></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Sigortam.net bir <a href="#" title="iLab Grup Şirketi"><img src="../www.root/ilab@2022.svg" alt="iLab logosu" /></a> grup şirketidir.</p>
+                <p class="footer-brands">
+                    <a href="#" title="Kariyer.net">Kariyer.net</a> -
+                    <a href="#" title="Arabam.com">Arabam.com</a> -
+                    <a href="#" title="Cimri">Cimri</a> -
+                    <a href="#" title="Emlakjet">Emlakjet</a> -
+                    <a href="#" title="Endeksa">Endeksa</a> -
+                    <a href="#" title="HangiKredi">HangiKredi</a> -
+                    <a href="#" title="Neredekal.com">Neredekal.com</a> -
+                    <a href="#" title="ChemOrbis">ChemOrbis</a> -
+                    <a href="#" title="SteelOrbis">SteelOrbis</a>
+                </p>
+            </div>
+        </div>
+    </footer>  
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let header = document.querySelector("header");
+            if (!header) {
+                console.error("HATA: 'header' elementi bulunamadı!");
+                return;
+            }
+            window.addEventListener("scroll", function () {
+                let scrollY = window.scrollY;
+                if (scrollY > 100 && scrollY < 300) {  
+                    header.classList.add("hidden-header");
+                    header.classList.remove("fixed-header");
+                } else if (scrollY >= 300) {  
+                    header.classList.remove("hidden-header");
+                    header.classList.add("fixed-header");
+                } else { 
+                    header.classList.remove("hidden-header", "fixed-header");
+                }
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {  
+            const slider = document.querySelector(".slider");
+            const slides = document.querySelectorAll(".slide");
+            const prevBtn = document.querySelector(".prev");
+            const nextBtn = document.querySelector(".next");
+            const dots = document.querySelectorAll(".dot");
+    
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function updateSlider() {
+      
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[currentSlide].classList.add("active");
+        }
+
+   
+        nextBtn.addEventListener("click", function() {
+            currentSlide++;
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0; // Sonsuz döngü isterseniz
+            }
+            updateSlider();
+        });
+
+        prevBtn.addEventListener("click", function() {
+            currentSlide--;
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1; // Sonsuz döngü isterseniz
+            }
+            updateSlider();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", function() {
+                currentSlide = index;
+                updateSlider();
+            });
+        });
+
+        updateSlider();
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const faqItems = document.querySelectorAll(".faq-item");
+
+            if (faqItems.length > 0) {
+                faqItems[0].classList.add("faq-item-active");
+            }
+
+            faqItems.forEach((item) => {
+                const questionBtn = item.querySelector(".faq-question");
+    
+                questionBtn.addEventListener("click", function() {
+     
+                item.classList.toggle("faq-item-active");
+                });
+            });
+        });
+    </script>      
+</body>
+</html>

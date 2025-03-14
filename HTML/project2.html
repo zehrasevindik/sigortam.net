@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            width: 100%;
+            grid-area: 5px;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.3s ease;
+            background-color: #f5f7f9;
+            padding: 15px 20px;
+            height: 60px;
+        }
+        .fixed-header {
+            background: white;
+        }
+        .hidden-header {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar ul li {
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            font-weight: lighter;
+            color: #616363;
+            padding: 8px 16px;
+            position: relative;
+            transition: color 0.3s ease-in-out;
+        }
+        .navbar ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0%;
+            bottom: -3px;
+            width: 100%;
+            height: 2px;
+            background-color: #0089ec;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+        .navbar ul li a:hover {
+            color: #0089ec;
+        }
+        .navbar ul li a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 160px;
+        }
+        .number {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .support-text {
+            font-size: 12px;
+            color: #616363;
+            margin-bottom: 5px;
+        }
+        .phone-container-1 {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .phone-icon {
+            width: 40px;
+            height: auto;
+        }
+        .phone-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            line-height: 1;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .btn {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #0089ec;
+            color: #fff;
+            padding: 12px 24px;
+            margin-right: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            gap: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .hamburger-menu {
+            display: none;
+            font-size: 24px;
+            color: #0089ec;
+            cursor: pointer;
+            margin-right: 50px;
+        }
+        .featured-campaign {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+        .campaign-card {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .campaign-image {
+            width: 50%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .campaign-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 8px;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }   
+        .campaign-card:hover .campaign-title {
+            color: #0089ec;
+        }
+        .campaign-desc {
+            font-size: 16px;
+            margin-left: 20px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .campaign-date {
+            font-size: 12px;
+            margin-left: 20px;
+            color: #777;
+        }
+        .page-name {
+            font-size: 12px;
+            text-decoration: none;
+            color: #555;
+        }
+        .discount {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .discount-box {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            grid-template-rows: auto auto;
+            gap: 18px;
+            align-items: center;
+            background: #f5f7f9;
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .discount img {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            width: 60px;
+            height: auto;
+        }
+        .discount-box .go-account {
+            grid-column: 2 / 3;
+            grid-row: 1/2;
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+            margin-left: 30px;
+        }
+        .discount-box .discount-text {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            margin: 0;
+            font-size: 16px;
+            color: #555;
+            margin-left: 30px;
+        }
+        .discount-box .discount-btn {
+            grid-column: 3 / 4;
+            grid-row: 1 / 3;
+            align-self: center;
+            color: #0089ec;
+            padding: 20px 80px;
+            border-color: #0089ec;
+            border-radius: 12px;
+            font-size: large;
+            cursor: pointer;
+            background-color: #f5f7f9;
+        }
+        .all-campaigns h2 {
+            width: 1400px;
+            margin-left: 70px;
+            margin-top: 50px;
+            font-size: 28px;
+        }
+        .all-campaigns-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .campaign-card2 {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 16px;
+        }
+        .campaign-card2 img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+        .campaign-title2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+        .campaign-desc2 {
+            font-size: 14px;
+            color: #555;
+        }
+        .campaign-date2 {
+            font-size: 12px;
+            color: #555;
+        }
+        .campaign-card2:hover .campaign-title2 {
+            color: #0089ec;
+        }
+        .footer-container {
+            background-color: white;
+            padding: 40px;
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font-size: 14px;
+            gap: 20px;
+        }
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;      
+            margin-bottom: 0;
+        }
+        .footer-logo p {
+            font-size: 12px;
+            margin: 0;
+            color: #777;
+            margin-top: -100px;
+            margin-left: 20px;
+        }
+        .footer-logo img {
+            width: 320px;
+            margin-bottom: 5px;
+        }
+        .footer-section h4 {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 80%;
+            gap: 20px;
+        }
+        .footer-section {
+            min-width: 160px;
+            text-align: left;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #777;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+            font-weight: lighter;
+        }
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+        .prices-sct {
+            display: flex;
+            align-items: center;
+        }
+        .prices-sct img {
+            display: block;
+            max-height: 70px;
+        }
+        .footer-contact {
+            margin-top: -250px;
+            align-self: flex-start;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        .social-icons {
+            display: block;
+            align-items: center;
+            gap: 20px;
+        }
+        .social-icons a {
+            margin-right: 10px;
+            font-size: 22px;
+            color: #333;
+            transition: color 0.3s;
+            text-align: center;
+        }
+        .social-icons a:hover {
+            color: #007bff;
+        }
+        .badges img {
+            width: 50px;
+            margin: 5px;
+        }
+        .footer-bottom {
+            width: 100%;
+            text-align: left;
+            display: flex;
+            margin-top: 20px;
+            font-size: 13px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        .footer-brands {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-left: 250px;
+        }
+        .footer-contact {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            align-self: flex-start;
+            gap: 30px;
+        }
+        .footer-contact p {
+            margin: 0;
+        }
+        .footer-bottom a {
+            text-decoration: none;
+            color: #777;
+        }
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .navbar,
+            .phone-icon,
+            .phone-number,
+            .support-text {
+                display: none;
+            }
+            .menu {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 0;
+                padding: 0;
+                margin: 0;
+            }
+            .btn {
+                display: flex;
+                padding: 8px 12px;
+                font-size: 14px;
+                margin-left: 120px;
+            }
+            .hide-on-mobile {
+                display: none;
+            }
+            .hamburger-menu {
+                display: flex;
+                font-size: 24px;
+                color: #0089ec;
+                cursor: pointer;
+                margin-right: 30px;
+                padding: 0;
+            }
+            .logo img {
+                height: 100px;
+            }
+            .campaign-card {
+                flex-direction: column;
+            }
+            .campaign-image,
+            .campaign-info {
+                width: 100%;
+            }
+            .campaign-image {
+                height: 200px;     
+                object-fit: cover;
+            }
+            .discount-box {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto; 
+            }
+            .discount-box img {
+                grid-row: 1 / 2; 
+                grid-column: 1 / 2;
+                margin: 0 auto; 
+            }
+            .discount-box .go-account {
+                grid-row: 2 / 3;
+                grid-column: 1 / 2;
+                text-align: center;
+            }
+            .discount-box .discount-text {
+                grid-row: 3 / 4;
+                grid-column: 1 / 2;
+                text-align: center;
+            }
+            .discount-box .discount-btn {
+                grid-row: 4 / 5;
+                grid-column: 1 / 2;
+                margin: 0 auto;
+            }
+            .all-campaigns h2 {
+                width: 100%;
+                margin: 50px auto 20px;
+                text-align: center;
+                font-size: 24px;
+            }
+            .all-campaigns-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                padding: 20px 10px;
+                gap: 20px;
+                margin: 0 auto;
+            }
+            .campaign-card2 {
+                margin-bottom: 20px;
+            }
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+            .footer-logo {
+                align-items: center;
+                text-align: center;
+            }
+            .footer-logo img {
+                width: 200px;
+            }
+            .footer-logo p {
+                margin-left: 0;
+                margin: 0 auto;
+            }
+            .footer-links {
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+            }
+            .footer-section {
+                text-align: center;
+            }
+            .prices-sct {
+                margin: 20px 0;
+            }
+            .footer-contact {
+                margin-left: 0;
+                margin: auto;
+                align-self: center;
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .footer-brands {
+                justify-content: center;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="Header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="../www.root/Sigortam.net Yeni.png" alt="Sigortam.net Logo">
+            </a>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="Ürünlerimiz">Ürünlerimiz<i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="Kampanyalar">Kampanyalar</a></li>
+                <li><a href="Poliçe İptal İşlemleri">Poliçe İptal İşlemleri</a></li>
+                <li><a href="Bilgi Merkezi">Bilgi Merkezi<i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+        </nav>
+        <div class="number">
+            <div class="support-text">Yardımcı Olmaya Hazırız</div>
+            <div class="phone-container-1"></div>
+                <img src="../www.root/211829_telephone_icon.svg" alt="Telephone" class="phone-icon">
+                <span class="phone-number">444 24 08</span>
+            </div>    
+        </div>
+        <div class="menu">
+            <a href="giris.html" class="btn">Giriş Yap <span class="hide-on-mobile">/ Üye Ol</span></a>
+        </div>
+        <div class="hamburger-menu">
+            <i class="fa fa-bars"></i>
+        </div>
+    </header>
+    <section class="featured-campaign">
+        <a href class="page-name">Sigortam.net / <strong>Kampanyalar</strong></a>
+        <h2>Öne Çıkan Kampanya</h2>
+        <a href="kampanya-detay" class="campaign-card">
+            <img src="../www.root/24100407-kampanya-turktelekom-688x376px(1)a77a0f2d-d07a-4b48-8a08-b3780ae5d577.webp" alt="campaign-image">
+            <div class="campaign-info">
+                <h3 class="campaign-title">Türk Telekom Müşterilerine Özel Tam 1.650 TL Hediye!</h3>
+                <p class="campaign-desc">Sigortam.net'te kaçırılmayacak 1.650 TL indirim Türk Telekom müşterilerini bekliyor!</p>
+                <span class="campaign-date">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </div>
+        </a>
+    </section>
+    <section class="discount">
+        <div class="discount-box">
+            <img src="../www.root/1730974_gift_box_christmas_holiday_present_icon.png" alt="giftbox-icon">
+            <h2 class="go-account">Hesabına git, sana özel indirimleri keşfet!</h2>
+            <p class="discount-text"> İndirimlerin varsa görüntüleyebilir, poliçe alımında bu indirimleri kullanabilirsin.</p>
+            <button class="discount-btn">Giriş Yap</button>
+        </div>
+    </section>
+    <section class="all-campaigns">
+        <h2>Tüm Kampanyalar</h2>
+        <div class="all-campaigns-grid">
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/20241204-kampanya-arabamgaraj-688x376px7bb340d4-d707-445b-b2ef-7f689f808338.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">Chippin Müşterilerine Özel 4.500 TL'ye Varan İndirim</h3>
+                <p class="campaign-desc2">Chippin müşterileri kasko ve sağlık poliçelerini Sigortam.net'ten %7 indirimle alıyor!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/20241204-kampanya-elektrikliarac-688x376px3945f9c8-7209-44e7-a11b-bbfba9d2a93c.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">Türk Telekom Müşterilerine Özel Tam 1.650 TL Hediye!</h3>
+                <p class="campaign-desc2">Sigortam.net'te kaçırılmayacak 1.650 TL indirim Türk Telekom müşterilerini bekliyor!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/20241204-kampanya-hangikredi-688x376px689c7ed4-2919-4bc0-96d4-7aee7aa3ae56.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">Türk Telekom Prime Müşterilerine Özel Tam 2.250 TL Hediye!</h3>
+                <p class="campaign-desc2">Sigortam.net'te kaçırılmayacak 2.250 TL indirim Türk Telekom Prime müşterilerini bekliyor!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/20241204-kampanya-ttprime-688x376px2b7858cf-977b-408e-b475-3655d15b462b.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">Sigortam.net Müşterilerine Özel HangiKredi'den Hediye!</h3>
+                <p class="campaign-desc2">Sigortam.net Müşterilerine Özel HangiKredi'den Finansal Rapor Hediyesi!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/20250117_SNet_Juzdan-kampanya-688x376px64b1274e-9461-4f0d-bb53-d4c22f4cb224.png" alt="Kampanya 1">
+                <h3 class="campaign-title2">Sigortam.net'ten Poliçe Alanlara Özel n11'den İndirim Kuponları</h3>
+                <p class="campaign-desc2">Sigortam.net'lilere Özel n11 üzerinden Yapılan Her 500 TL'lik Alışverişe Anında 100 TL'lik Kupon İndirimi!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/20250117_SNet_PetrolOfisi-kampanya-688x376px7e5c186a-377b-438f-baf9-1e0bce373cad.png" alt="Kampanya 1">
+                <h3 class="campaign-title2">Sigortam.net'ten Sağlık Sigortası Alanlara Özel n11'den İndirim Kuponları</h3>
+                <p class="campaign-desc2">Sigortam.net'lilere Özel n11 üzerinden Yapılan Her 3.000 TL'lik Alışverişe Anında 500 TL'lik Kupon İndirimi!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/20250306_SNet_Chippin-688x376px422fde1b-b958-4a9f-b78b-5589877119e4.png" alt="Kampanya 1">
+                <h3 class="campaign-title2">Juzdan Müşterilerine Özel 4.500 TL'ye Varan İndirim</h3>
+                <p class="campaign-desc2">Juzdan Müşterilerine Özel 4.500 TL'ye Varan İndirim Fırsatını Kaçırma!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/24100407-kampanya-bjk-688x376pxc887b926-0a72-4970-a98e-e035cb5a3484.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">Petrol Ofisi Müşterilerine Özel İndirimler!</h3>
+                <p class="campaign-desc2">Petrol Ofisi Müşterilerine Kasko, Sağlık ve Trafik Sigortası Poliçelerinde Özel İndirimler!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/24100407-kampanya-paylaskazan-688x376pxfedc0775-68e7-4556-bf2a-07658fc189e0.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">750 TL İndirimle Aracına Özel Periyodik Bakım Hizmeti Arabam Garaj'da!</h3>
+                <p class="campaign-desc2">750 TL İndirimle Aracına Özel Periyodik Bakım Hizmeti Arabam Garaj'da!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/24100407-kampanya-turktelekom-688x376px(1)a77a0f2d-d07a-4b48-8a08-b3780ae5d577.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">Elektrikli Araçlar için Kasko Sigortasında %10 İndirim!</h3>
+                <p class="campaign-desc2">Elektrikli aracın için hemen kaskonu yaptır, indirimli fiyatlardan yararlan!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/24120404-kampanya-n11-688x376pxc01bda1a-ddaf-4df7-89ca-a6eb859811ec.webp" alt="Kampanya 1">
+                <h3 class="campaign-title2">Sigortam.net'ten Paylaş Kazan Kampanyası!</h3>
+                <p class="campaign-desc2">Sigortam.net'ten Paylaş Kazan Kampanyası! Hemen arkadaşlarını davet et, hem sen hem o kazansın!</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+            <a href="#" class="campaign-card2">
+                <img src="../www.root/kampanyalar/25010407-n11-saglik-kampanya-688x776pxb5b23dcd-dd20-421e-bbf8-8da99fa9135b.jpg" alt="Kampanya 1">
+                <h3 class="campaign-title2">Beşiktaş Jimnastik Kulübü Taraftara Özel Seyahat Sağlık Sigortası</h3>
+                <p class="campaign-desc2">Beşiktaş Jimnastik Kulübü Taraftara Özel Seyahat Sağlık Sigortası</p>
+                <span class="campaign-date2">Kampanya Bitiş Tarihi: 31.12.2025</span>
+            </a>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html">
+                <img src="../www.root/Sigortam.net Yeni.png" alt="Sigortam.net Logosu" />
+                </a>
+                <p>© 2000–2025 Sigortam.net</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Ürünlerimiz</h4>
+                    <ul>
+                        <li><a href="#" title="Kasko Sigortası hakkında detaylı bilgi">Kasko Sigortası</a></li>
+                        <li><a href="#" title="Trafik Sigortası hakkında detaylı bilgi">Trafik Sigortası</a></li>
+                        <li><a href="#" title="İMM Sigortası hakkında detaylı bilgi">İMM Sigortası</a></li>
+                        <li><a href="#">Tamamlayıcı Sağlık Sigortası</a></li>
+                        <li><a href="#">Özel Sağlık Sigortası</a></li>
+                        <li><a href="#">Konut Sigortası</a></li>
+                        <li><a href="#">DASK</a></li>
+                        <li><a href="#">Evim Güvende Sigortası</a></li>
+                        <li><a href="#">Ferdi Kaza Sigortası</a></li>
+                        <li><a href="#">Telefon Kaskosu</a></li>
+                        <li><a href="#">Evcil Hayvan Sigortası</a></li>
+                        <li><a href="#">Seyahat Sağlık Sigortası</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Merak Edilenler</h4>
+                    <ul>
+                        <li><a href="#">Günlük, Haftalık ve Aylık Kasko</a></li>
+                        <li><a href="#">Doğum Sigortası Fiyatları</a></li>
+                        <li><a href="#">Hamileyken Doğum Sigortası</a></li>
+                        <li><a href="#">İMM Sigortası Nedir</a></li>
+                        <li><a href="#">İnternetten Trafik Sigortası Yaptırmak</a></li>
+                         <li><a href="#">Sağlık Sigortası Karşılaştırma</a></li>
+                        <li><a href="#">SBM Teklif Al</a></li>
+                        <li><a href="#">Trafik Sigortası Şirketleri</a></li>
+                        <li><a href="#">TSS Doğum Paketi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hızlı Erişim</h4>
+                    <ul>
+                         <li><a href="#">Araç Yakıt Hesaplama</a></li>
+                         <li><a href="#">Kasko Değer Listesi</a></li>
+                        <li><a href="#">MTV Hesaplama</a></li>
+                        <li><a href="#">ÖTV Hesaplama</a></li>
+                        <li><a href="#">Trafik Sigortası Basamak Hesaplama</a></li>
+                        <li><a href="#">Tramer Kaydı Sorgulama</a></li>
+                        <li><a href="#">Zorunlu Trafik Sigortası Fiyatları</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hakkımızda</h4>
+                    <ul>
+                        <li><a href="#">Biz Kimiz?</a></li>
+                        <li><a href="#">İletişim</a></li>
+                        <li><a href="#">Ödüllerimiz</a></li>
+                        <li><a href="#">İşlem Rehberi</a></li>
+                        <li><a href="#">Kariyer</a></li>
+                        <li><a href="#">Kullanıcı Sözleşmesi</a></li>
+                        <li><a href="#">Kişisel Verilerin Korunması</a></li>
+                        <li><a href="#">Gizlilik ve Çerez Politikası</a></li>
+                        <li><a href="#">Çerez Tercihleri</a></li>
+                        <li><a href="#">Basketbol Takımı</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="prices-sct">
+                <a href="#">
+                    <img src="../www.root/Ekran Görüntüsü (399).png" alt="oduller">
+                </a>
+            </div>
+            <div class="footer-contact">
+                <p><strong>Yardımcı olmaya hazırız</strong></p>
+                <p>📞 444 24 00</p>
+                <div class="social-icons">
+                    <p><strong>Bizi Takip Edin</strong></p>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="badges">
+                    <a href="#"><img src="../www.root/guven-damgasi.svg" alt="Ödül 1" style="height: 60px; width: 90px;"/></a>
+                    <a href="#"><img src="../www.root/etbis.png" alt="Güvenlik Rozeti" /></a>
+                    <a href="#"><img src="../www.root/ssl.svg" alt="SSL Sertifikası" style="height: 40px; width: 40px;"/></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Sigortam.net bir <a href="#" title="iLab Grup Şirketi"><img src="../www.root/ilab@2022.svg" alt="iLab logosu" /></a> grup şirketidir.</p>
+                <p class="footer-brands">
+                    <a href="#" title="Kariyer.net">Kariyer.net</a> -
+                    <a href="#" title="Arabam.com">Arabam.com</a> -
+                    <a href="#" title="Cimri">Cimri</a> -
+                    <a href="#" title="Emlakjet">Emlakjet</a> -
+                    <a href="#" title="Endeksa">Endeksa</a> -
+                    <a href="#" title="HangiKredi">HangiKredi</a> -
+                    <a href="#" title="Neredekal.com">Neredekal.com</a> -
+                    <a href="#" title="ChemOrbis">ChemOrbis</a> -
+                    <a href="#" title="SteelOrbis">SteelOrbis</a>
+                </p>
+            </div>
+        </div>
+    </footer> 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let header = document.querySelector("header");
+            if (!header) {
+                console.error("HATA: 'header' elementi bulunamadı!");
+                return;
+            }
+            window.addEventListener("scroll", function () {
+                let scrollY = window.scrollY;
+                if (scrollY > 100 && scrollY < 300) {  
+                    header.classList.add("hidden-header");
+                    header.classList.remove("fixed-header");
+                } else if (scrollY >= 300) {  
+                    header.classList.remove("hidden-header");
+                    header.classList.add("fixed-header");
+                } else { 
+                    header.classList.remove("hidden-header", "fixed-header");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
